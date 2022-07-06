@@ -1,0 +1,12 @@
+{
+  "name": "predictive",
+  "version": "0.0.1",
+  "description": "Predictive dialing evaluator",
+  "main": "run.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Maxim [maxirmx] Samsonov",
+  "license": "MIT",
+  "bin": { "hello": "./run.js" }
+}
