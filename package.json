@@ -1,12 +1,19 @@
 {
   "name": "predictive",
-  "version": "0.0.1",
-  "description": "Predictive dialing evaluator",
+  "version": "0.1.0",
+  "description": "Predictive dialing",
   "main": "run.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --reporter spec"
   },
   "author": "Maxim [maxirmx] Samsonov",
   "license": "MIT",
-  "bin": { "hello": "./run.js" }
+  "bin": {
+    "hello": "./run.js"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0"
+  }
 }
