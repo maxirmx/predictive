@@ -4,28 +4,6 @@
 
 'use strict';
 
-// Факториал
-// n!
-function _factorial(n) {
-    var f=1;
-    for (var i = 2; i <= n; i++)
-        f = f * i;
-    return f;
-}
-
-// ErlangB -- "В лоб"
-// E - normalised load (in erlang)
-// lines - количество свободных агентов ('lines')
-// Возвращает вероятность блокировки
-function _ErlangB(E, lines)
-{
-    var L = (E**lines) / _factorial(lines);
-    var sum = 0;
-    for (var i = 0; i <= lines; i++) 
-        sum += (E**i) / _factorial(i);
-    return (L / sum);
-}
-
 // ErlangB -- оптимизированный
 // E - normalised load (in erlang)
 // lines - количество свободных агентов ('lines')
@@ -38,4 +16,24 @@ function ErlangB (E, lines)
     return (1.0 / invB);
 }
 
-export { _factorial, _ErlangB, ErlangB };
+// Инвертированный ErlangB
+// lines - количество агентов ('lines')
+// precision - точночть результата (знаков после запятой)
+// abandon - максимальный процент отказов 
+// Возвращает normalised load (in erlang)
+function invertedErlangB(lines, abandon, precision) {
+    var E = 0.0;
+    var step = 1.0;
+    do {
+        do {
+            E += step;
+        } while ( ErlangB(E, lines) <= abandon )
+        E -= step;
+        step /= 10.0;
+        precision--;
+    } while (precision >= 0)
+
+    return E;
+}
+
+export { ErlangB, invertedErlangB };

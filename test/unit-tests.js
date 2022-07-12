@@ -3,29 +3,7 @@
 // License    https://github.com/maxirmx/predictive/blob/main/LICENSE MIT
 
 import { expect } from 'chai';
-import { _factorial, _ErlangB, ErlangB } from '../main/util.js';
-import { invertedErlangB } from '../main/convex.js';
-
-describe('factorial', function () {
-    it('0! should be equal to 1', function () {
-        expect(_factorial(0)).to.equal(1);
-    });
-    it('1! should be equal to 1', function () {
-        expect(_factorial(1)).to.equal(1);
-    });
-    it('10! should be equal to 1*2*3*4*5*6*7*8*9*10', function () {
-        expect(_factorial(10)).to.equal(1*2*3*4*5*6*7*8*9*10);
-    });
-});
-
-describe('ErlangB', function () {
-    it('ErlangB(9, 12) should be close to 0.083', function () {
-        expect(_ErlangB(9, 12)).to.be.closeTo(0.083, 0.001);
-    });
-    it('ErlangB(9.2, 15) should be close to 0.023', function () {
-        expect(_ErlangB(9.2, 15)).to.be.closeTo(0.023, 0.001);
-    });
-});
+import { ErlangB, invertedErlangB } from '../main/util.js';
 
 describe('Оптимизированный ErlangB', function () {
     it('ErlangB(9, 12) should be close to 0.083', function () {
@@ -47,7 +25,7 @@ describe('Инвертированный ErlangB', function () {
         var E = invertedErlangB(m, a, p); 
         expect(ErlangB(E, m)).to.be.closeTo(a, 0.0001);
     });
-    it('invertedErlangB(ErlangB(18.75, 25), 25, 3) should be close to 18.75 [с точностью 10^-3]', function () {
+    it('invertedErlangB(ErlangB(18.751, 25), 25, 3) should be close to 18.751 [с точностью 10^-3]', function () {
         const p = 3;
         const m = 25;
         const E = 18.75;

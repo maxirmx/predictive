@@ -1,8 +1,27 @@
 'use strict';
 
-import { invertedErlangB } from './main/convex.js';
+import { createInterface } from 'readline';
+import { promisify } from 'util';
 
+import { callFlow } from './main/callflow.js';
 
-console.log( "Hello!" );
+async function main() {
+    const rl = createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+  
+    const question = promisify(rl.question).bind(rl);
 
-console.log('invertedErlangB(22, 0.0753, 2) = ' + invertedErlangB(22, 0.0753, 2));
+    var agents = await question('Количество агентов? ');
+    var abandonRate = await question('Целевой процент отказов (в процентах)? ');
+    var hitRate = await question('Процент дозвона (в процентах)? ');
+    var  serviceTime = await question('Среднее время обслуживания (в секундах)? ');
+  
+    var cf = callFlow(agents, abandonRate/100, hitRate/100, serviceTime, 0);
+  
+    console.log("Paccчётный call flow: " + cf + " вызовa(ов) в секунду");
+    rl.close();     
+}
+
+main();
